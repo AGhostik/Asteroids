@@ -1,15 +1,6 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Resources.Components
-{
-    public interface IController {
-        bool Up();
-        bool Right();
-        bool Left();
-        bool Down();
-    }
-
+namespace Resources.Components {
     public class Controller : IController {
         public bool Up() {
             return Input.GetKey(KeyCode.W);

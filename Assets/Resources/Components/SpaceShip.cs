@@ -8,9 +8,9 @@ namespace Resources.Components {
         [Range(0.9f, 0.99999f)]
         public float stopMultiplier = 0.98f;
 
+        private IController _controller;
         private Rigidbody2D _rigidbody2D;
         private Transform _transform;
-        private IController _controller;
 
         [Inject]
         private void _init(IController controller) {
@@ -26,6 +26,7 @@ namespace Resources.Components {
             if (_controller.Up()) {
                 _rigidbody2D.AddForce(_transform.up * moveSpeed * Time.fixedDeltaTime);
             }
+
             if (_controller.Down()) {
                 // торможение
                 _rigidbody2D.velocity *= stopMultiplier;
@@ -35,10 +36,11 @@ namespace Resources.Components {
             if (_controller.Left()) {
                 rotation = rotationSpeed;
             }
+
             if (_controller.Right()) {
                 rotation = -rotationSpeed;
             }
-            
+
             _rigidbody2D.MoveRotation(_rigidbody2D.rotation + rotation * Time.fixedDeltaTime);
         }
     }
