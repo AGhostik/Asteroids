@@ -12,11 +12,6 @@ namespace Resources.Components {
         private Rigidbody2D _rigidbody2D;
         private Transform _transform;
 
-        [Inject]
-        private void _init(IController controller) {
-            _controller = controller;
-        }
-
         private void Awake() {
             _transform = GetComponent<Transform>();
             _rigidbody2D = GetComponent<Rigidbody2D>();
@@ -42,6 +37,11 @@ namespace Resources.Components {
             }
 
             _rigidbody2D.MoveRotation(_rigidbody2D.rotation + rotation * Time.fixedDeltaTime);
+        }
+
+        [Inject]
+        private void _init(IController controller) {
+            _controller = controller;
         }
     }
 }
