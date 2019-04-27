@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Zenject;
 
 namespace Resources.Components {
     //[System.Serializable]
@@ -17,6 +18,8 @@ namespace Resources.Components {
 
         private readonly List<GameObject> _enemiesCached = new List<GameObject>();
         private Area[] _areas;
+
+        private DiContainer _container;
         private Transform _enemyContainer;
         private float _nextSpawnTimeLeft;
         private Area _visibleArea;
@@ -50,6 +53,11 @@ namespace Resources.Components {
 #endif
         }
 
+        [Inject]
+        private void _init(DiContainer container) {
+            _container = container;
+        }
+
         private void _spawn() {
             var areaIndex = Random.Range(0, _areas.Length);
             var area = _areas[areaIndex];
@@ -65,7 +73,8 @@ namespace Resources.Components {
         private GameObject _getNextEnemy() {
             var nextEnemy = _enemiesCached.FirstOrDefault(_ => !_.gameObject.activeInHierarchy);
             if (nextEnemy == null) {
-                nextEnemy = Instantiate(enemy, _enemyContainer);
+                // InstantiatePrefab нужен для внедрения зависимости в компонентах enemy
+                nextEnemy = _container.InstantiatePrefab(enemy, _enemyContainer);
                 _enemiesCached.Add(nextEnemy);
             }
 
