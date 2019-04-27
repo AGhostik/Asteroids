@@ -132,9 +132,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79765fe5262a5a94c8102d7ec24b65cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 150
-  rotationSpeed: 70
-  stopMultiplier: 0.98
+  moveAcceleration: 150
+  rotationAcceleration: 150
+  maxVelocityMagnitude: 3
+  brakingMultiplier: 2
 --- !u!1 &7353179798400486480
 GameObject:
   m_ObjectHideFlags: 0

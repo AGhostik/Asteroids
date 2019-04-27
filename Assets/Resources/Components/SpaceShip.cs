@@ -3,10 +3,10 @@ using Zenject;
 
 namespace Resources.Components {
     public class SpaceShip : MonoBehaviour {
-        public float moveSpeed = 150;
-        public float rotationSpeed = 70;
-        [Range(0.9f, 0.99999f)]
-        public float stopMultiplier = 0.98f;
+        public float moveAcceleration = 150;
+        public float rotationAcceleration = 150;
+        public float maxVelocityMagnitude = 3;
+        public float brakingMultiplier = 2f;
 
         private IController _controller;
         private Rigidbody2D _rigidbody2D;
@@ -19,21 +19,30 @@ namespace Resources.Components {
 
         private void FixedUpdate() {
             if (_controller.Up()) {
-                _rigidbody2D.AddForce(_transform.up * moveSpeed * Time.fixedDeltaTime);
+                _rigidbody2D.AddForce(_transform.up * moveAcceleration * Time.fixedDeltaTime);
+                if (_rigidbody2D.velocity.magnitude > maxVelocityMagnitude) {
+                    _rigidbody2D.velocity = _rigidbody2D.velocity.normalized * maxVelocityMagnitude;
+                }
             }
 
             if (_controller.Down()) {
                 // торможение
-                _rigidbody2D.velocity *= stopMultiplier;
+                if (_rigidbody2D.velocity.magnitude > 0) {
+                    var velocity = _rigidbody2D.velocity;
+                    velocity -= velocity * brakingMultiplier * Time.fixedDeltaTime;
+                    _rigidbody2D.velocity = velocity;
+                } else {
+                    _rigidbody2D.velocity = Vector2.zero;
+                }
             }
 
             var rotation = 0f;
             if (_controller.Left()) {
-                rotation = rotationSpeed;
+                rotation = rotationAcceleration;
             }
 
             if (_controller.Right()) {
-                rotation = -rotationSpeed;
+                rotation = -rotationAcceleration;
             }
 
             _rigidbody2D.MoveRotation(_rigidbody2D.rotation + rotation * Time.fixedDeltaTime);

@@ -41,16 +41,15 @@ namespace Resources.Components {
                 _nextSpawnTimeLeft -= Time.deltaTime;
             }
 
-            #if DEBUG
+#if DEBUG
             _areas[0].DebugDraw(Color.red);
             _areas[1].DebugDraw(Color.green);
             _areas[2].DebugDraw(Color.blue);
             _areas[3].DebugDraw(Color.yellow);
-
             _visibleArea.DebugDraw(Color.cyan);
-            #endif
+#endif
         }
-        
+
         private void _spawn() {
             var areaIndex = Random.Range(0, _areas.Length);
             var area = _areas[areaIndex];
@@ -73,13 +72,14 @@ namespace Resources.Components {
             return nextEnemy;
         }
 
-        private static void _lookAt2D(Transform transform2D, Vector3 point) {
+        private static void _lookAt2D(Transform transform2D, Vector2 point) {
             // можно сделать методом расширения
-            var dir = point - transform2D.position;
-            var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            transform2D.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+            var position = transform2D.position;
+            var direction = new Vector2(point.x - position.x, point.y - position.y);
+            transform2D.up = direction;
         }
-        
+
         private Area _createVisibleArea() {
             var cameraLeftUpPoint = mainCamera.ScreenToWorldPoint(new Vector2(0, 0));
             var cameraRightDownPoint = mainCamera.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
