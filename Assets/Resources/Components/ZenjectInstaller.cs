@@ -5,6 +5,7 @@ namespace Resources.Components {
         public override void InstallBindings() {
             Container.Bind<IController>().To<Controller>().AsSingle();
             Container.Bind<IGameScore>().To<GameScore>().AsSingle();
+            Container.Bind<IDropSpawner>().To<DropSpawner>().AsSingle();
         }
     }
 }

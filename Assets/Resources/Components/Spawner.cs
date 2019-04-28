@@ -1,13 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Zenject;
+using Random = UnityEngine.Random;
 
 namespace Resources.Components {
-    //[System.Serializable]
-    //public class Enemy {
-    //    public GameObject enemy;
-    //}
+    [Serializable]
+    public class SpawnEnemy {
+        public float timeBetweenSpawns;
+        public int countLimit;
+        public GameObject enemy;
+    }
 
     public class Spawner : MonoBehaviour {
         public Camera mainCamera;
@@ -36,8 +40,7 @@ namespace Resources.Components {
         }
 
         private void Update() {
-            if (_nextSpawnTimeLeft <= 0 &&
-                _enemiesCached.Count < enemyCountLimit) {
+            if (_nextSpawnTimeLeft <= 0) {
                 _spawn();
                 _nextSpawnTimeLeft = timeBetweenSpawns;
             } else {
@@ -59,10 +62,12 @@ namespace Resources.Components {
         }
 
         private void _spawn() {
+            if (!_tryGetNextEnemy(out var nextEnemy)) {
+                return;
+            }
+
             var areaIndex = Random.Range(0, _areas.Length);
             var area = _areas[areaIndex];
-
-            var nextEnemy = _getNextEnemy();
 
             nextEnemy.transform.position = area.GetRandomPoint();
             _lookAt2D(nextEnemy.transform, _visibleArea.GetRandomPoint());
@@ -70,15 +75,20 @@ namespace Resources.Components {
             nextEnemy.SetActive(true);
         }
 
-        private GameObject _getNextEnemy() {
-            var nextEnemy = _enemiesCached.FirstOrDefault(_ => !_.gameObject.activeInHierarchy);
-            if (nextEnemy == null) {
-                // InstantiatePrefab нужен для внедрения зависимости в компонентах enemy
-                nextEnemy = _container.InstantiatePrefab(enemy, _enemyContainer);
-                _enemiesCached.Add(nextEnemy);
+        private bool _tryGetNextEnemy(out GameObject nextEnemy) {
+            nextEnemy = _enemiesCached.FirstOrDefault(_ => !_.gameObject.activeInHierarchy);
+            if (nextEnemy != null) {
+                return true;
             }
 
-            return nextEnemy;
+            if (_enemiesCached.Count >= enemyCountLimit) {
+                return false;
+            }
+
+            // InstantiatePrefab нужен для внедрения зависимости в компонентах enemy
+            nextEnemy = _container.InstantiatePrefab(enemy, _enemyContainer);
+            _enemiesCached.Add(nextEnemy);
+            return true;
         }
 
         private static void _lookAt2D(Transform transform2D, Vector2 point) {

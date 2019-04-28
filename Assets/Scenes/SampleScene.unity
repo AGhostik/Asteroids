@@ -430,7 +430,7 @@ MonoBehaviour:
   mainCamera: {fileID: 519420031}
   spawnFieldWidth: 1
   timeBetweenSpawns: 1
-  enemyCountLimit: 25
+  enemyCountLimit: 15
   enemy: {fileID: 4146269724787047281, guid: a1e6ab93ba505874f812d24f52e0e9da, type: 3}
 --- !u!4 &1752201007
 Transform:
