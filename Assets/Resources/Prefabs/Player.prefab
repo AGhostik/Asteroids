@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 550607074638119626}
   - component: {fileID: 550607074638119627}
   m_Layer: 8
-  m_Name: Player_Idle
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -179,6 +179,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53fa433cf4199f9418a927636d1a61eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireRate: 1
+  fireRate: 0.3
   bulletPrefab: {fileID: 4580752681526365770, guid: 2ab4981aa497ccc498172b42cbb3f52f,
     type: 3}
