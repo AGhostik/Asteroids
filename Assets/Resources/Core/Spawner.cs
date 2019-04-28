@@ -16,32 +16,6 @@ namespace Resources.Core {
         });
 
         private DiContainer _container;
-        
-        public bool TrySpawn(GameObject prefab, int limit, out GameObject instanse) {
-            instanse = null;
-            var prefabName = prefab.name;
-
-            if (_cache.TryGetValue(prefabName, out var instances)) {
-                instanse = instances.FirstOrDefault(_ => !_.activeInHierarchy);
-            }
-
-            if (instanse == null) {
-                if (instances == null ||
-                    instances.Count < limit) {
-                    instanse = _container.InstantiatePrefab(prefab, _instancesContainer.Value);
-                } else {
-                    return false;
-                }
-            }
-
-            if (!_cache.ContainsKey(prefabName)) {
-                _cache.Add(prefabName, new List<GameObject>() {instanse});
-            } else {
-                _cache[prefabName].Add(instanse);
-            }
-
-            return true;
-        }
 
         public GameObject Spawn(GameObject prefab) {
             GameObject instance = null;
@@ -84,6 +58,32 @@ namespace Resources.Core {
             }
 
             return result;
+        }
+
+        public bool TrySpawn(GameObject prefab, int limit, out GameObject instanse) {
+            instanse = null;
+            var prefabName = prefab.name;
+
+            if (_cache.TryGetValue(prefabName, out var instances)) {
+                instanse = instances.FirstOrDefault(_ => !_.activeInHierarchy);
+            }
+
+            if (instanse == null) {
+                if (instances == null ||
+                    instances.Count < limit) {
+                    instanse = _container.InstantiatePrefab(prefab, _instancesContainer.Value);
+                } else {
+                    return false;
+                }
+            }
+
+            if (!_cache.ContainsKey(prefabName)) {
+                _cache.Add(prefabName, new List<GameObject>() {instanse});
+            } else {
+                _cache[prefabName].Add(instanse);
+            }
+
+            return true;
         }
 
         [Inject]

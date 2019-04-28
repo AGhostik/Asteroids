@@ -19,8 +19,8 @@ namespace Resources.Components {
 
         private bool _canDissapear;
         private Destroyable _destroyable;
-        private ISpawner _spawner;
         private IGameScore _gameScore;
+        private ISpawner _spawner;
         private Transform _transform;
 
         private void Awake() {

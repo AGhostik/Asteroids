@@ -27,17 +27,17 @@ namespace Resources.Components {
             }
         }
 
+        [Inject]
+        private void _init(IController controller, ISpawner spawner) {
+            _controller = controller;
+            _spawner = spawner;
+        }
+
         private void _shot() {
             var bullet = _spawner.Spawn(bulletPrefab);
             bullet.transform.position = _transform.position;
             bullet.transform.rotation = _transform.rotation;
             bullet.SetActive(true);
-        }
-
-        [Inject]
-        private void _init(IController controller, ISpawner spawner) {
-            _controller = controller;
-            _spawner = spawner;
         }
     }
 }

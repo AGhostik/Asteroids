@@ -4,14 +4,14 @@ using UnityEngine;
 namespace Resources.Core {
     public interface ISpawner {
         /// <summary>
-        /// Возвращает неактивный инстанс
+        ///     Возвращает неактивный инстанс
         /// </summary>
         /// <param name="prefab"></param>
         /// <returns></returns>
         GameObject Spawn(GameObject prefab);
 
         /// <summary>
-        /// Возвращает несколько неактивных инстансов
+        ///     Возвращает несколько неактивных инстансов
         /// </summary>
         /// <param name="prefab"></param>
         /// <param name="count"></param>
@@ -19,7 +19,7 @@ namespace Resources.Core {
         List<GameObject> Spawn(GameObject prefab, int count);
 
         /// <summary>
-        /// Возвращает в out неактивный инстанс, если не был превышен лимит
+        ///     Возвращает в out неактивный инстанс, если не был превышен лимит
         /// </summary>
         /// <param name="prefab"></param>
         /// <param name="limit"></param>

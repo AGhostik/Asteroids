@@ -46,9 +46,33 @@ namespace Resources.Components {
 #endif
         }
 
+        private static Area[] _createAreasAroundVisible(Area visibleArea, float width) {
+            var leftArea = new Area(new Vector2(visibleArea.LeftUpPoint.x - width, visibleArea.LeftUpPoint.y), visibleArea.LeftDownPoint);
+            var topArea = new Area(new Vector2(visibleArea.LeftUpPoint.x, visibleArea.LeftUpPoint.y - width), visibleArea.RightUpPoint);
+            var rightArea = new Area(visibleArea.RightUpPoint, new Vector2(visibleArea.RightDownPoint.x + width, visibleArea.RightDownPoint.y));
+            var bottomArea = new Area(visibleArea.LeftDownPoint, new Vector2(visibleArea.RightDownPoint.x, visibleArea.RightDownPoint.y + width));
+
+            return new[] {leftArea, topArea, rightArea, bottomArea};
+        }
+
+        private static Area _createVisibleArea(Camera camera) {
+            var cameraLeftUpPoint = camera.ScreenToWorldPoint(new Vector2(0, 0));
+            var cameraRightDownPoint = camera.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
+
+            return new Area(cameraLeftUpPoint, cameraRightDownPoint);
+        }
+
         [Inject]
         private void _init(ISpawner spawner) {
             _spawner = spawner;
+        }
+
+        private static void _lookAt2D(Transform transform2D, Vector2 point) {
+            // можно сделать методом расширения
+
+            var position = transform2D.position;
+            var direction = new Vector2(point.x - position.x, point.y - position.y);
+            transform2D.up = direction;
         }
 
         private void _spawn() {
@@ -63,30 +87,6 @@ namespace Resources.Components {
             _lookAt2D(nextEnemy.transform, _visibleArea.GetRandomPoint());
 
             nextEnemy.SetActive(true);
-        }
-
-        private static void _lookAt2D(Transform transform2D, Vector2 point) {
-            // можно сделать методом расширения
-
-            var position = transform2D.position;
-            var direction = new Vector2(point.x - position.x, point.y - position.y);
-            transform2D.up = direction;
-        }
-
-        private static Area _createVisibleArea(Camera camera) {
-            var cameraLeftUpPoint = camera.ScreenToWorldPoint(new Vector2(0, 0));
-            var cameraRightDownPoint = camera.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
-
-            return new Area(cameraLeftUpPoint, cameraRightDownPoint);
-        }
-
-        private static Area[] _createAreasAroundVisible(Area visibleArea, float width) {
-            var leftArea = new Area(new Vector2(visibleArea.LeftUpPoint.x - width, visibleArea.LeftUpPoint.y), visibleArea.LeftDownPoint);
-            var topArea = new Area(new Vector2(visibleArea.LeftUpPoint.x, visibleArea.LeftUpPoint.y - width), visibleArea.RightUpPoint);
-            var rightArea = new Area(visibleArea.RightUpPoint, new Vector2(visibleArea.RightDownPoint.x + width, visibleArea.RightDownPoint.y));
-            var bottomArea = new Area(visibleArea.LeftDownPoint, new Vector2(visibleArea.RightDownPoint.x, visibleArea.RightDownPoint.y + width));
-
-            return new[] {leftArea, topArea, rightArea, bottomArea};
         }
     }
 }
