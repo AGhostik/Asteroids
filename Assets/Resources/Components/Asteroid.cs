@@ -19,7 +19,7 @@ namespace Resources.Components {
 
         private bool _canDissapear;
         private Destroyable _destroyable;
-        private IDropSpawner _dropSpawner;
+        private ISpawner _spawner;
         private IGameScore _gameScore;
         private Transform _transform;
 
@@ -43,7 +43,7 @@ namespace Resources.Components {
         private void _afterDestroy(Collider2D obj) {
             _gameScore.Increase(score);
             foreach (var drop in drops) {
-                var dropObjects = _dropSpawner.GetDrop(drop.gameObject, drop.count);
+                var dropObjects = _spawner.Spawn(drop.gameObject, drop.count);
                 foreach (var dropObject in dropObjects) {
                     dropObject.transform.position = _transform.position;
                     dropObject.transform.rotation = new Quaternion(0, 0, Random.rotation.z, Random.rotation.w);
@@ -53,9 +53,9 @@ namespace Resources.Components {
         }
 
         [Inject]
-        private void _init(IGameScore gameScore, IDropSpawner dropSpawner) {
+        private void _init(IGameScore gameScore, ISpawner spawner) {
             _gameScore = gameScore;
-            _dropSpawner = dropSpawner;
+            _spawner = spawner;
         }
     }
 }
