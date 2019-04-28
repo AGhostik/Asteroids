@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Resources.Core;
+﻿using Resources.Core;
 using UnityEngine;
 using Zenject;
 
@@ -8,27 +6,20 @@ namespace Resources.Components {
     public class Gun : MonoBehaviour {
         public float fireRate = 1;
         public GameObject bulletPrefab;
-        private readonly List<Bullet> _bulletCache = new List<Bullet>();
-        private Transform _bulletContainer;
+
         private IController _controller;
         private float _fireRateCountdown;
-
+        private ISpawner _spawner;
         private Transform _transform;
 
         private void Awake() {
             _transform = GetComponent<Transform>();
-
-            var bulletContainer = new GameObject("BulletContainer");
-            _bulletContainer = bulletContainer.GetComponent<Transform>();
-            _bulletContainer.position = _transform.position;
-            _bulletContainer.parent = _transform;
         }
 
         private void Update() {
             if (_fireRateCountdown <= 0) {
                 if (_controller.Fire1()) {
-                    var bullet = _getNextBullet();
-                    bullet.Launch(_transform.position, _transform.rotation);
+                    _shot();
                     _fireRateCountdown = fireRate;
                 }
             } else {
@@ -36,20 +27,17 @@ namespace Resources.Components {
             }
         }
 
-        private Bullet _getNextBullet() {
-            var nextBullet = _bulletCache.FirstOrDefault(_ => _.CanLaunch());
-            if (nextBullet == null) {
-                var bullet = Instantiate(bulletPrefab, _bulletContainer);
-                nextBullet = bullet.GetComponent<Bullet>();
-                _bulletCache.Add(nextBullet);
-            }
-
-            return nextBullet;
+        private void _shot() {
+            var bullet = _spawner.Spawn(bulletPrefab);
+            bullet.transform.position = _transform.position;
+            bullet.transform.rotation = _transform.rotation;
+            bullet.SetActive(true);
         }
 
         [Inject]
-        private void _init(IController controller) {
+        private void _init(IController controller, ISpawner spawner) {
             _controller = controller;
+            _spawner = spawner;
         }
     }
 }
