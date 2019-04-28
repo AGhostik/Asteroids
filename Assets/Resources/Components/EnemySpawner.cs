@@ -25,8 +25,8 @@ namespace Resources.Components {
         private Area _visibleArea;
 
         private void Awake() {
-            _areas = _createZonesBeyondCameraVisibility();
-            _visibleArea = _createVisibleArea();
+            _visibleArea = _createVisibleArea(mainCamera);
+            _areas = _createAreasAroundVisible(_visibleArea, spawnFieldWidth);
         }
 
         private void Update() {
@@ -73,23 +73,18 @@ namespace Resources.Components {
             transform2D.up = direction;
         }
 
-        private Area _createVisibleArea() {
-            var cameraLeftUpPoint = mainCamera.ScreenToWorldPoint(new Vector2(0, 0));
-            var cameraRightDownPoint = mainCamera.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
+        private static Area _createVisibleArea(Camera camera) {
+            var cameraLeftUpPoint = camera.ScreenToWorldPoint(new Vector2(0, 0));
+            var cameraRightDownPoint = camera.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
 
             return new Area(cameraLeftUpPoint, cameraRightDownPoint);
         }
 
-        private Area[] _createZonesBeyondCameraVisibility() {
-            var cameraLeftUpPoint = mainCamera.ScreenToWorldPoint(new Vector2(0, 0));
-            var cameraLeftDownPoint = mainCamera.ScreenToWorldPoint(new Vector2(0, Screen.height));
-            var cameraRightUpPoint = mainCamera.ScreenToWorldPoint(new Vector2(Screen.width, 0));
-            var cameraRightDownPoint = mainCamera.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
-
-            var leftArea = new Area(new Vector2(cameraLeftUpPoint.x - spawnFieldWidth, cameraLeftUpPoint.y), cameraLeftDownPoint);
-            var topArea = new Area(new Vector2(cameraLeftUpPoint.x, cameraLeftUpPoint.y - spawnFieldWidth), cameraRightUpPoint);
-            var rightArea = new Area(cameraRightUpPoint, new Vector2(cameraRightDownPoint.x + spawnFieldWidth, cameraRightDownPoint.y));
-            var bottomArea = new Area(cameraLeftDownPoint, new Vector2(cameraRightDownPoint.x, cameraRightDownPoint.y + spawnFieldWidth));
+        private static Area[] _createAreasAroundVisible(Area visibleArea, float width) {
+            var leftArea = new Area(new Vector2(visibleArea.LeftUpPoint.x - width, visibleArea.LeftUpPoint.y), visibleArea.LeftDownPoint);
+            var topArea = new Area(new Vector2(visibleArea.LeftUpPoint.x, visibleArea.LeftUpPoint.y - width), visibleArea.RightUpPoint);
+            var rightArea = new Area(visibleArea.RightUpPoint, new Vector2(visibleArea.RightDownPoint.x + width, visibleArea.RightDownPoint.y));
+            var bottomArea = new Area(visibleArea.LeftDownPoint, new Vector2(visibleArea.RightDownPoint.x, visibleArea.RightDownPoint.y + width));
 
             return new[] {leftArea, topArea, rightArea, bottomArea};
         }
