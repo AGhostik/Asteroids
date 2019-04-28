@@ -1,3 +1,4 @@
+using Resources.Core;
 using Zenject;
 
 namespace Resources.Components {

@@ -1,4 +1,4 @@
-﻿namespace Resources.Components {
+﻿namespace Resources.Core {
     public interface IController {
         bool Down();
         bool Fire1();

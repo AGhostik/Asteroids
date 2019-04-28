@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using Zenject;
 
-namespace Resources.Components {
+namespace Resources.Core {
     public class DropSpawner : IDropSpawner {
         /// <summary>
         ///     string = gameObject.Name

@@ -1,4 +1,5 @@
 ﻿using System;
+using Resources.Core;
 using UnityEngine;
 using Zenject;
 using Random = UnityEngine.Random;

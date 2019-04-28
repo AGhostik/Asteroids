@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Resources.Components {
+namespace Resources.Core {
     public class Controller : IController {
         public bool Up() {
             return Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow);

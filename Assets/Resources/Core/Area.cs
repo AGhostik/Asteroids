@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Resources.Components {
+namespace Resources.Core {
     public class Area {
         public Area(Vector2 leftUpPoint, Vector2 rightDownPoint) {
             LeftUpPoint = leftUpPoint;

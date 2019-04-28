@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Resources.Core;
+using UnityEngine;
 using Zenject;
 
 namespace Resources.Components {

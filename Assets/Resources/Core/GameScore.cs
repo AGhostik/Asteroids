@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Resources.Components {
+namespace Resources.Core {
     public class GameScore : IGameScore {
         private int _score;
 
