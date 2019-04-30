@@ -16,7 +16,7 @@ namespace Resources.Core {
         /// <param name="prefab"></param>
         /// <param name="count"></param>
         /// <returns></returns>
-        List<GameObject> Spawn(GameObject prefab, int count);
+        HashSet<GameObject> Spawn(GameObject prefab, int count);
 
         /// <summary>
         ///     Возвращает в out неактивный инстанс, если не был превышен лимит

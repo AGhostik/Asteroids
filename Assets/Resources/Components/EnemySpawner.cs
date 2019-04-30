@@ -14,27 +14,30 @@ namespace Resources.Components {
 
     public class EnemySpawner : MonoBehaviour {
         public Camera mainCamera;
-        public float spawnFieldWidth = 3f;
-        public float timeBetweenSpawns = 5f;
-        public int enemyCountLimit = 10;
-        public GameObject enemy;
-
+        public float spawnFieldWidth = 1f;
+        public SpawnEnemy[] spawnEnemies;
         private Area[] _areas;
-        private float _nextSpawnTimeLeft;
+
+        private float[] _enemiesTimer;
         private ISpawner _spawner;
         private Area _visibleArea;
 
         private void Awake() {
             _visibleArea = _createVisibleArea(mainCamera);
             _areas = _createAreasAroundVisible(_visibleArea, spawnFieldWidth);
+
+            _enemiesTimer = new float[spawnEnemies.Length];
         }
 
         private void Update() {
-            if (_nextSpawnTimeLeft <= 0) {
-                _spawn();
-                _nextSpawnTimeLeft = timeBetweenSpawns;
-            } else {
-                _nextSpawnTimeLeft -= Time.deltaTime;
+            for (var index = 0; index < spawnEnemies.Length; index++) {
+                var spawnEnemy = spawnEnemies[index];
+                if (_enemiesTimer[index] <= 0) {
+                    _spawn(spawnEnemy.enemy, spawnEnemy.countLimit);
+                    _enemiesTimer[index] = spawnEnemy.timeBetweenSpawns;
+                } else {
+                    _enemiesTimer[index] -= Time.deltaTime;
+                }
             }
 
 #if DEBUG
@@ -75,7 +78,7 @@ namespace Resources.Components {
             transform2D.up = direction;
         }
 
-        private void _spawn() {
+        private void _spawn(GameObject enemy, int enemyCountLimit) {
             if (!_spawner.TrySpawn(enemy, enemyCountLimit, out var nextEnemy)) {
                 return;
             }
