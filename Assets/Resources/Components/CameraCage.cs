@@ -13,6 +13,7 @@ namespace Resources.Components {
         public void FixedUpdate() {
             // явно не самое эффективное решение
             // как вариант, можно вокруг видимой зоны расположить четыре boxCollider и использовать OnTriggerEnter2D (возможно так будет лучше по производительности)
+            // или расположить один boxCollider внутри видимой зоны и использовать OnTriggerExit2D
 
             var playerPosition = _playerTransform.position;
 
