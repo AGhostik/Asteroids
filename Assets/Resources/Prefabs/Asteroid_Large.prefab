@@ -135,6 +135,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31ae83732eb208148a6925fdb79448ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  drops:
+  - count: 3
+    gameObject: {fileID: 5101731517591577911, guid: 0be12db7e9750064494af5c6e466f076,
+      type: 3}
 --- !u!114 &8383525932828195807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,10 +177,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc4c0c933302a4d4ea45c685e8460733, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  drops:
-  - count: 3
-    gameObject: {fileID: 5101731517591577911, guid: 0be12db7e9750064494af5c6e466f076,
-      type: 3}
 --- !u!114 &5944033716566754262
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,11 +1,12 @@
 ﻿using Resources.Core;
 using UnityEngine;
+using Zenject;
 
 namespace Resources.Components {
     public class CameraCage : MonoBehaviour {
         private const float AdditionalSpace = 0.1f;
-        public Camera mainCamera;
-        public GameObject player;
+
+        private IMainObjectsSource _mainObjectsSource;
         private Rigidbody2D _playerRigidbody2D;
         private Transform _playerTransform;
         private Area _visibleArea;
@@ -35,16 +36,16 @@ namespace Resources.Components {
         }
 
         private void Awake() {
-            _visibleArea = _createVisibleArea(mainCamera);
+            var player = _mainObjectsSource.GetPlayer();
             _playerTransform = player.GetComponent<Transform>();
             _playerRigidbody2D = player.GetComponent<Rigidbody2D>();
+
+            _visibleArea = _mainObjectsSource.GetVisibleArea();
         }
 
-        private static Area _createVisibleArea(Camera camera) {
-            var cameraLeftUpPoint = camera.ScreenToWorldPoint(new Vector2(0, 0));
-            var cameraRightDownPoint = camera.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
-
-            return new Area(cameraLeftUpPoint, cameraRightDownPoint);
+        [Inject]
+        private void _init(IMainObjectsSource mainObjectsSource) {
+            _mainObjectsSource = mainObjectsSource;
         }
     }
 }

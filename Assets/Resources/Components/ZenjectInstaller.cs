@@ -7,6 +7,7 @@ namespace Resources.Components {
             Container.Bind<IController>().To<Controller>().AsSingle();
             Container.Bind<IGameScore>().To<GameScore>().AsSingle();
             Container.Bind<ISpawner>().To<Spawner>().AsSingle();
+            Container.Bind<IMainObjectsSource>().To<MainObjectsSource>().AsSingle();
         }
     }
 }

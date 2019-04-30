@@ -13,25 +13,21 @@ namespace Resources.Components {
     }
 
     public class EnemySpawner : MonoBehaviour {
-        public Camera mainCamera;
         public float spawnFieldWidth = 1f;
         public SpawnEnemy[] spawnEnemies;
+        private float[] _enemiesTimer;
+
+        private IMainObjectsSource _mainObjectsSource;
 
         /// <summary>
         ///     Зоны вокруг области видимости, в которых появляются враги
         /// </summary>
-        private Area[] _areas;
-        private float[] _enemiesTimer;
+        private Area[] _spawnAreas;
         private ISpawner _spawner;
 
-        /// <summary>
-        ///     Зона, в которую целятся астероиды
-        /// </summary>
-        private Area _visibleArea;
-
         private void Awake() {
-            _visibleArea = _createVisibleArea(mainCamera);
-            _areas = _createAreasAroundVisible(_visibleArea, spawnFieldWidth);
+            var visibleArea = _mainObjectsSource.GetVisibleArea();
+            _spawnAreas = _createAreasAroundVisible(visibleArea, spawnFieldWidth);
 
             _enemiesTimer = new float[spawnEnemies.Length];
         }
@@ -46,14 +42,6 @@ namespace Resources.Components {
                     _enemiesTimer[index] -= Time.deltaTime;
                 }
             }
-
-#if DEBUG
-            _areas[0].DebugDraw(Color.red);
-            _areas[1].DebugDraw(Color.green);
-            _areas[2].DebugDraw(Color.blue);
-            _areas[3].DebugDraw(Color.yellow);
-            _visibleArea.DebugDraw(Color.cyan);
-#endif
         }
 
         private static Area[] _createAreasAroundVisible(Area visibleArea, float width) {
@@ -65,24 +53,10 @@ namespace Resources.Components {
             return new[] {leftArea, topArea, rightArea, bottomArea};
         }
 
-        private static Area _createVisibleArea(Camera camera) {
-            var cameraLeftUpPoint = camera.ScreenToWorldPoint(new Vector2(0, 0));
-            var cameraRightDownPoint = camera.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
-
-            return new Area(cameraLeftUpPoint, cameraRightDownPoint);
-        }
-
         [Inject]
-        private void _init(ISpawner spawner) {
+        private void _init(ISpawner spawner, IMainObjectsSource mainObjectsSource) {
             _spawner = spawner;
-        }
-
-        private static void _lookAt2D(Transform transform2D, Vector2 point) {
-            // можно сделать методом расширения
-
-            var position = transform2D.position;
-            var direction = new Vector2(point.x - position.x, point.y - position.y);
-            transform2D.up = direction;
+            _mainObjectsSource = mainObjectsSource;
         }
 
         private void _spawn(GameObject enemy, int enemyCountLimit) {
@@ -90,11 +64,10 @@ namespace Resources.Components {
                 return;
             }
 
-            var areaIndex = Random.Range(0, _areas.Length);
-            var area = _areas[areaIndex];
+            var areaIndex = Random.Range(0, _spawnAreas.Length);
+            var area = _spawnAreas[areaIndex];
 
             nextEnemy.transform.position = area.GetRandomPoint();
-            _lookAt2D(nextEnemy.transform, _visibleArea.GetRandomPoint());
 
             nextEnemy.SetActive(true);
         }

@@ -1,26 +1,18 @@
-﻿using System;
-using Resources.Core;
+﻿using Resources.Core;
 using UnityEngine;
 using Zenject;
-using Random = UnityEngine.Random;
 
 namespace Resources.Components {
-    [Serializable]
-    public class Drop {
-        public int count;
-        public GameObject gameObject;
-    }
-
     public class Asteroid : MonoBehaviour {
-        public Drop[] drops;
-
         private bool _canDissapear;
 
-        private ISpawner _spawner;
+        private IMainObjectsSource _mainObjectsSource;
         private Transform _transform;
+        private Area _visibleArea;
 
         private void Awake() {
             _transform = GetComponent<Transform>();
+            _visibleArea = _mainObjectsSource.GetVisibleArea();
         }
 
         private void OnBecameInvisible() {
@@ -33,20 +25,21 @@ namespace Resources.Components {
             _canDissapear = true;
         }
 
-        private void OnDisable() {
-            foreach (var drop in drops) {
-                var dropObjects = _spawner.Spawn(drop.gameObject, drop.count);
-                foreach (var dropObject in dropObjects) {
-                    dropObject.transform.position = _transform.position;
-                    dropObject.transform.rotation = new Quaternion(0, 0, Random.rotation.z, Random.rotation.w);
-                    dropObject.SetActive(true);
-                }
-            }
+        private void OnEnable() {
+            _lookAt2D(_transform, _visibleArea.GetRandomPoint());
         }
 
         [Inject]
-        private void _init(ISpawner spawner) {
-            _spawner = spawner;
+        private void _init(IMainObjectsSource mainObjectsSource) {
+            _mainObjectsSource = mainObjectsSource;
+        }
+
+        private static void _lookAt2D(Transform transform2D, Vector2 point) {
+            // можно сделать методом расширения
+
+            var position = transform2D.position;
+            var direction = new Vector2(point.x - position.x, point.y - position.y);
+            transform2D.up = direction;
         }
     }
 }
