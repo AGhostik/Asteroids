@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2546156778873669739}
   - component: {fileID: 23497292699908364}
   - component: {fileID: 170620529066249510}
+  - component: {fileID: 5764529073841208449}
   - component: {fileID: 934786190741798133}
   - component: {fileID: 1242025842557536972}
   - component: {fileID: 5078513080435263319}
@@ -134,6 +135,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31ae83732eb208148a6925fdb79448ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5764529073841208449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5101731517591577911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a47938bacdca5640bb075bcd99b4c9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  score: 1
 --- !u!114 &934786190741798133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,7 +173,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc4c0c933302a4d4ea45c685e8460733, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score: 1
   drops: []
 --- !u!114 &5078513080435263319
 MonoBehaviour:

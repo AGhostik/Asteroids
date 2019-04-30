@@ -7,26 +7,19 @@ using Random = UnityEngine.Random;
 namespace Resources.Components {
     [Serializable]
     public class Drop {
-        //public int minCount = 1;
-        //public int maxCount = 3;
         public int count;
         public GameObject gameObject;
     }
 
     public class Asteroid : MonoBehaviour {
-        public int score;
         public Drop[] drops;
 
         private bool _canDissapear;
-        private Destroyable _destroyable;
-        private IGameScore _gameScore;
+
         private ISpawner _spawner;
         private Transform _transform;
 
         private void Awake() {
-            _destroyable = GetComponent<Destroyable>();
-            _destroyable.afterDestroy = _afterDestroy;
-
             _transform = GetComponent<Transform>();
         }
 
@@ -40,8 +33,7 @@ namespace Resources.Components {
             _canDissapear = true;
         }
 
-        private void _afterDestroy(Collider2D obj) {
-            _gameScore.Increase(score);
+        private void OnDisable() {
             foreach (var drop in drops) {
                 var dropObjects = _spawner.Spawn(drop.gameObject, drop.count);
                 foreach (var dropObject in dropObjects) {
@@ -53,8 +45,7 @@ namespace Resources.Components {
         }
 
         [Inject]
-        private void _init(IGameScore gameScore, ISpawner spawner) {
-            _gameScore = gameScore;
+        private void _init(ISpawner spawner) {
             _spawner = spawner;
         }
     }
