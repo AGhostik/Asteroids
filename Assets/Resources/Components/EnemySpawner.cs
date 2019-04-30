@@ -16,10 +16,17 @@ namespace Resources.Components {
         public Camera mainCamera;
         public float spawnFieldWidth = 1f;
         public SpawnEnemy[] spawnEnemies;
-        private Area[] _areas;
 
+        /// <summary>
+        ///     Зоны вокруг области видимости, в которых появляются враги
+        /// </summary>
+        private Area[] _areas;
         private float[] _enemiesTimer;
         private ISpawner _spawner;
+
+        /// <summary>
+        ///     Зона, в которую целятся астероиды
+        /// </summary>
         private Area _visibleArea;
 
         private void Awake() {

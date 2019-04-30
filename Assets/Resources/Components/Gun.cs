@@ -19,7 +19,7 @@ namespace Resources.Components {
         private void Update() {
             if (_fireRateCountdown <= 0) {
                 if (_controller.Fire1()) {
-                    _shot();
+                    _shot(bulletPrefab);
                     _fireRateCountdown = fireRate;
                 }
             } else {
@@ -33,8 +33,8 @@ namespace Resources.Components {
             _spawner = spawner;
         }
 
-        private void _shot() {
-            var bullet = _spawner.Spawn(bulletPrefab);
+        private void _shot(GameObject prefab) {
+            var bullet = _spawner.Spawn(prefab);
             bullet.transform.position = _transform.position;
             bullet.transform.rotation = _transform.rotation;
             bullet.SetActive(true);
