@@ -18,18 +18,16 @@ namespace Resources.Components {
         private float[] _enemiesTimer;
 
         private IMainObjectsSource _mainObjectsSource;
-
-        /// <summary>
-        ///     Зоны вокруг области видимости, в которых появляются враги
-        /// </summary>
         private Area[] _spawnAreas;
         private ISpawner _spawner;
 
         private void Awake() {
             var visibleArea = _mainObjectsSource.GetVisibleArea();
             _spawnAreas = _createAreasAroundVisible(visibleArea, spawnFieldWidth);
-
             _enemiesTimer = new float[spawnEnemies.Length];
+            for (var index = 0; index < spawnEnemies.Length; index++) {
+                _enemiesTimer[index] = spawnEnemies[index].timeBetweenSpawns;
+            }
         }
 
         private void Update() {
