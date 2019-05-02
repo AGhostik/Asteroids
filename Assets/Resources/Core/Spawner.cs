@@ -17,6 +17,14 @@ namespace Resources.Core {
 
         private DiContainer _container;
 
+        public void Reset() {
+            foreach (var gameObjects in _cache.Values) {
+                foreach (var gameObject in gameObjects) {
+                    gameObject.SetActive(false);
+                }
+            }
+        }
+
         public GameObject Spawn(GameObject prefab) {
             GameObject instance = null;
             var prefabName = prefab.name;

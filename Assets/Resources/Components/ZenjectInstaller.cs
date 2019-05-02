@@ -8,6 +8,7 @@ namespace Resources.Components {
             Container.Bind<IGameScore>().To<GameScore>().AsSingle();
             Container.Bind<ISpawner>().To<Spawner>().AsSingle();
             Container.Bind<IMainObjectsSource>().To<MainObjectsSource>().AsSingle();
+            Container.Bind<IGameStage>().To<GameStage>().AsSingle();
         }
     }
 }

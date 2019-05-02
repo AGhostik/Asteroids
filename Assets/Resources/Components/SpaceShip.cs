@@ -8,8 +8,9 @@ namespace Resources.Components {
         public float rotationAcceleration = 150;
         public float maxVelocityMagnitude = 3;
         public float brakingMultiplier = 2f;
-
         private IController _controller;
+
+        private IGameStage _gameStage;
         private Rigidbody2D _rigidbody2D;
         private Transform _transform;
 
@@ -37,6 +38,10 @@ namespace Resources.Components {
             }
         }
 
+        private void OnDisable() {
+            _gameStage.PlayerDefeated();
+        }
+
         private void _acceleration() {
             _rigidbody2D.AddForce(_transform.up * moveAcceleration * Time.fixedDeltaTime);
             if (_rigidbody2D.velocity.magnitude > maxVelocityMagnitude) {
@@ -55,8 +60,9 @@ namespace Resources.Components {
         }
 
         [Inject]
-        private void _init(IController controller) {
+        private void _init(IController controller, IGameStage gameStage) {
             _controller = controller;
+            _gameStage = gameStage;
         }
     }
 }

@@ -4,6 +4,11 @@ using UnityEngine;
 namespace Resources.Core {
     public interface ISpawner {
         /// <summary>
+        ///     Делает все объекты в кеше неактивными
+        /// </summary>
+        void Reset();
+
+        /// <summary>
         ///     Возвращает неактивный инстанс
         /// </summary>
         /// <param name="prefab"></param>
