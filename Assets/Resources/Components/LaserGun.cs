@@ -5,10 +5,12 @@ using Zenject;
 namespace Resources.Components {
     public class LaserGun : MonoBehaviour {
         private const int BeamHitsCount = 64;
+
         public float laserTime = 1.5f;
         public float coolDownTime = 5f;
         public float range = 50f;
         public LayerMask enemyLayer;
+
         private RaycastHit2D[] _beamHits;
         private IController _controller;
         private float _coolDown;

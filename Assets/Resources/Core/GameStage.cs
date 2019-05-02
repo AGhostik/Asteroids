@@ -26,8 +26,8 @@ namespace Resources.Core {
         }
 
         public void Restart() {
-            _gameScore.Reset();
             _spawner.Reset();
+            _gameScore.Reset();
             _resetPlayer(_mainObjectsSource.GetPlayer());
         }
 
