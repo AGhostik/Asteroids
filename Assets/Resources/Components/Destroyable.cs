@@ -17,13 +17,17 @@ namespace Resources.Components {
         private ISpawner _spawner;
         private Transform _transform;
 
+        public void Kill() {
+            _drop();
+            gameObject.SetActive(false);
+        }
+
         private void Awake() {
             _transform = GetComponent<Transform>();
         }
 
         private void OnTriggerEnter2D(Collider2D other) {
-            _drop();
-            gameObject.SetActive(false);
+            Kill();
         }
 
         private void _drop() {

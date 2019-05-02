@@ -7,11 +7,11 @@ namespace Resources.Core {
         }
 
         public bool Fire1() {
-            return Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.RightShift); //Input.GetAxisRaw("Fire1") > 0;
+            return Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.RightShift);
         }
 
         public bool Fire2() {
-            return Input.GetAxisRaw("Fire2") > 0;
+            return Input.GetKey(KeyCode.X) || Input.GetKey(KeyCode.RightControl);
         }
 
         public bool Left() {

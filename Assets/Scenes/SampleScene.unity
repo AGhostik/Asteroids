@@ -261,14 +261,28 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3268380622427469830, guid: c00817daaa4b07b4f8d5c36ba5c52918,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3268380622427469830, guid: c00817daaa4b07b4f8d5c36ba5c52918,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3268380622427469830, guid: c00817daaa4b07b4f8d5c36ba5c52918,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3268380622427469830, guid: c00817daaa4b07b4f8d5c36ba5c52918,
+        type: 3}
+      propertyPath: m_Parameters.widthMultiplier
+      value: 0.05
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c00817daaa4b07b4f8d5c36ba5c52918, type: 3}
---- !u!1 &533560646 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 550607074638119631, guid: c00817daaa4b07b4f8d5c36ba5c52918,
-    type: 3}
-  m_PrefabInstance: {fileID: 533560645}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &637748384
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,8 +396,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c32bbd1c26ad7f4095228158ffa1f58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 519420031}
-  player: {fileID: 533560646}
 --- !u!4 &834399336
 Transform:
   m_ObjectHideFlags: 0
@@ -427,7 +439,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa5f65cc622e1a5438b6e1c716853299, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 519420031}
   spawnFieldWidth: 1
   spawnEnemies:
   - timeBetweenSpawns: 2
