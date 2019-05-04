@@ -9,7 +9,6 @@ namespace Resources.Core {
             _mainObjectsSource = mainObjectsSource;
         }
 
-        public string GameOverText { get; private set; }
         public Action PlayerDefeatedCallback { get; set; }
 
         private readonly IGameScore _gameScore;
@@ -21,7 +20,6 @@ namespace Resources.Core {
         }
 
         public void PlayerDefeated() {
-            GameOverText = $"GameOver{Environment.NewLine}Score: {_gameScore.GetScore()}{Environment.NewLine}Restart? Y/N";
             PlayerDefeatedCallback?.Invoke();
         }
 
