@@ -4,8 +4,6 @@ using Zenject;
 
 namespace Resources.Components {
     public class Asteroid : MonoBehaviour {
-        private bool _canDissapear;
-
         private IMainObjectsSource _mainObjectsSource;
         private Transform _transform;
         private Area _visibleArea;
@@ -13,16 +11,6 @@ namespace Resources.Components {
         private void Awake() {
             _transform = GetComponent<Transform>();
             _visibleArea = _mainObjectsSource.GetVisibleArea();
-        }
-
-        private void OnBecameInvisible() {
-            if (_canDissapear) {
-                gameObject.SetActive(false);
-            }
-        }
-
-        private void OnBecameVisible() {
-            _canDissapear = true;
         }
 
         private void OnEnable() {

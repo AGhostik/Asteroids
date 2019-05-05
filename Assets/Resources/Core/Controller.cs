@@ -25,5 +25,13 @@ namespace Resources.Core {
         public bool Up() {
             return Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow);
         }
+
+        public bool View1() {
+            return Input.GetKey(KeyCode.Alpha1);
+        }
+
+        public bool View2() {
+            return Input.GetKey(KeyCode.Alpha2);
+        }
     }
 }

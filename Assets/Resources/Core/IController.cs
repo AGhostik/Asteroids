@@ -6,5 +6,7 @@
         bool Left();
         bool Right();
         bool Up();
+        bool View1();
+        bool View2();
     }
 }

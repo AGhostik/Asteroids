@@ -9,6 +9,7 @@ namespace Resources.Components {
             Container.Bind<ISpawner>().To<Spawner>().AsSingle();
             Container.Bind<IMainObjectsSource>().To<MainObjectsSource>().AsSingle();
             Container.Bind<IGameStage>().To<GameStage>().AsSingle();
+            Container.Bind<IGameSettings>().To<GameSettings>().AsSingle();
         }
     }
 }
