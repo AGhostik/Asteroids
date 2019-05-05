@@ -7,8 +7,7 @@ namespace Resources.Components {
 
         private bool _canDissapear;
 
-        private void LateUpdate() {
-            // не уверен что это хорошее по производительности решение, нужно тестировать
+        private void Update() {
             if (_canDissapear) {
                 if (!renders.Any(render => render.isVisible)) {
                     _canDissapear = false;
