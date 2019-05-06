@@ -27,12 +27,6 @@ namespace Resources.Components {
         }
 
         private void _playerDefeatedCallback() {
-            if (gameOverText.IsDestroyed()) {
-                // исправляет ошибку при закрытии
-                // MissingReferenceException: The object of type 'Text' has been destroyed but you are still trying to access it
-                return;
-            }
-
             gameOverText.text = $"GameOver{Environment.NewLine}Score: {_gameScore.GetScore()}{Environment.NewLine}Restart? Y/N";
             gameOverText.gameObject.SetActive(true);
         }

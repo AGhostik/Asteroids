@@ -3,6 +3,7 @@ using UnityEngine;
 using Zenject;
 
 namespace Resources.Components {
+    [RequireComponent(typeof(LineRenderer))]
     public class LaserGun : MonoBehaviour {
         private const int BeamHitsCount = 64;
 

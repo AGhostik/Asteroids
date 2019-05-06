@@ -3,6 +3,7 @@ using UnityEngine;
 using Zenject;
 
 namespace Resources.Components {
+    [RequireComponent(typeof(Rigidbody2D))]
     public class Ufo : MonoBehaviour {
         public float moveSpeed = 2f;
 

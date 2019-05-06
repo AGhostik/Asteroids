@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
 namespace Resources.Components {
+    [RequireComponent(typeof(SpriteRenderer))]
     public class RandomSprite : MonoBehaviour {
         public Sprite[] sprites;
 

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
 namespace Resources.Components {
+    [RequireComponent(typeof(Rigidbody2D))]
     public class AutoMoving : MonoBehaviour {
         public float moveSpeed = 5f;
         private Rigidbody2D _rigidbody2D;

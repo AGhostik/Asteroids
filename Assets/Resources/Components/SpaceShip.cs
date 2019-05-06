@@ -3,6 +3,7 @@ using UnityEngine;
 using Zenject;
 
 namespace Resources.Components {
+    [RequireComponent(typeof(Rigidbody2D))]
     public class SpaceShip : MonoBehaviour {
         public float moveAcceleration = 150;
         public float rotationAcceleration = 150;
