@@ -2,7 +2,7 @@
 
 namespace Resources.Core {
     public interface IGameStage {
-        Action PlayerDefeatedCallback { get; set; }
+        event Action PlayerDefeatedEvent;
         void Exit();
         void PlayerDefeated();
         void Restart();

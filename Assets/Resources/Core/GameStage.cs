@@ -9,7 +9,7 @@ namespace Resources.Core {
             _mainObjectsSource = mainObjectsSource;
         }
 
-        public Action PlayerDefeatedCallback { get; set; }
+        public event Action PlayerDefeatedEvent;
 
         private readonly IGameScore _gameScore;
         private readonly IMainObjectsSource _mainObjectsSource;
@@ -20,7 +20,7 @@ namespace Resources.Core {
         }
 
         public void PlayerDefeated() {
-            PlayerDefeatedCallback?.Invoke();
+            PlayerDefeatedEvent?.Invoke();
         }
 
         public void Restart() {
