@@ -4,7 +4,7 @@ using Zenject;
 
 namespace Resources.Components {
     public class Gun : MonoBehaviour {
-        public float fireRate = 1;
+        public float fireRate = 1f;
         public GameObject bulletPrefab;
 
         private IController _controller;

@@ -10,7 +10,6 @@ namespace Resources.Components {
         private IMainObjectsSource _mainObjectsSource;
         private Transform _playerTransform;
         private Rigidbody2D _rigidbody2D;
-
         private Transform _transform;
 
         private void Awake() {

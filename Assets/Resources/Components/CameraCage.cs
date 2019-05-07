@@ -11,7 +11,15 @@ namespace Resources.Components {
         private Transform _playerTransform;
         private Area _visibleArea;
 
-        public void FixedUpdate() {
+        private void Awake() {
+            var player = _mainObjectsSource.GetPlayer();
+            _playerTransform = player.GetComponent<Transform>();
+            _playerRigidbody2D = player.GetComponent<Rigidbody2D>();
+
+            _visibleArea = _mainObjectsSource.GetVisibleArea();
+        }
+
+        private void FixedUpdate() {
             // явно не самое эффективное решение
             // как вариант, можно вокруг видимой зоны расположить четыре boxCollider и использовать OnTriggerEnter2D (возможно так будет лучше по производительности)
             // или расположить один boxCollider внутри видимой зоны и использовать OnTriggerExit2D
@@ -33,14 +41,6 @@ namespace Resources.Components {
             if (playerPosition.y > _visibleArea.RightDownPoint.y) {
                 _playerRigidbody2D.MovePosition(new Vector2(playerPosition.x, _visibleArea.LeftUpPoint.y + AdditionalSpace));
             }
-        }
-
-        private void Awake() {
-            var player = _mainObjectsSource.GetPlayer();
-            _playerTransform = player.GetComponent<Transform>();
-            _playerRigidbody2D = player.GetComponent<Rigidbody2D>();
-
-            _visibleArea = _mainObjectsSource.GetVisibleArea();
         }
 
         [Inject]

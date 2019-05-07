@@ -15,8 +15,8 @@ namespace Resources.Components {
     public class EnemySpawner : MonoBehaviour {
         public float spawnFieldWidth = 1f;
         public SpawnEnemy[] spawnEnemies;
-        private float[] _enemiesTimer;
 
+        private float[] _enemiesTimer;
         private IMainObjectsSource _mainObjectsSource;
         private Area[] _spawnAreas;
         private ISpawner _spawner;

@@ -5,12 +5,12 @@ using Zenject;
 namespace Resources.Components {
     [RequireComponent(typeof(Rigidbody2D))]
     public class SpaceShip : MonoBehaviour {
-        public float moveAcceleration = 150;
-        public float rotationAcceleration = 150;
-        public float maxVelocityMagnitude = 3;
+        public float moveAcceleration = 150f;
+        public float rotationAcceleration = 150f;
+        public float maxVelocityMagnitude = 3f;
         public float brakingMultiplier = 2f;
-        private IController _controller;
 
+        private IController _controller;
         private IGameStage _gameStage;
         private Rigidbody2D _rigidbody2D;
         private Transform _transform;
