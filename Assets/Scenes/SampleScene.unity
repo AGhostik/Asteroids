@@ -805,10 +805,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnFieldWidth: 1
   spawnEnemies:
-  - timeBetweenSpawns: 2
-    countLimit: 5
+  - timeBetweenSpawns: 1.5
+    countLimit: 25
     enemy: {fileID: 4146269724787047281, guid: a1e6ab93ba505874f812d24f52e0e9da, type: 3}
-  - timeBetweenSpawns: 9
+  - timeBetweenSpawns: 5
     countLimit: 2
     enemy: {fileID: 3805281095025761771, guid: e4869e86bd01dd6418a981a16b3a6f95, type: 3}
 --- !u!4 &1752201007
